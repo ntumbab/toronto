@@ -1,38 +1,64 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://gitter.im/vuejs/vue" target="_blank">Gitter Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-      <br>
-      <li><a href="http://vuejs-templates.github.io/webpack/" target="_blank">Docs for This Template</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+  <div class="toronto">
+    <div class="container">
+      <div class="row">
+      
+        <div class="col-md-4" id="interest">
+          <h3>{{titre}}</h3>
+           <table class="table table-hover">
+        <thead>
+          <tr>
+          <th>{{place}}</th>
+          <th>{{website}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="marker in markers" >
+          <td @click='toggleInfoWindow(marker,0,0)' class="interestList">{{ marker.title }}</td>
+          <td><a :href="marker.url" target="_blank">&rarr;</a></td>
+          </tr>
+        </tbody>
+        </table>
+        </div>
+
+        <div class="col-md-8" id="carte">
+          <gmap-map
+            :center="center"
+            :zoom="zoom"
+            style="width: 100%; height: 100%"
+          >
+            <gmap-info-window 
+                :options="infoOptions" 
+                :position="infoWindowPos" 
+                :opened="infoWinOpen" 
+                :content="infoContent" 
+                @closeclick="infoWinOpen=false">
+            </gmap-info-window>
+            <gmap-marker
+              :key="i" 
+              v-for="(m,i) in markers"
+              :position="m.position"
+              :clickable="true"
+              :draggable="true"
+              @click="toggleInfoWindow(m,i,1),center=m.position">
+            </gmap-marker>
+        </gmap-map>
+        </div>
+
+    </div>
   </div>
+</div>
 </template>
 
-<script>
-export default {
-  name: 'hello',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  }
-}
-</script>
+<script src="./toronto.js"></script>
+
+
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+#carte{
+  text-align: center;
+}
 h1, h2 {
   font-weight: normal;
 }
@@ -49,5 +75,8 @@ li {
 
 a {
   color: #42b983;
+}
+.interestList{
+  cursor:pointer;
 }
 </style>

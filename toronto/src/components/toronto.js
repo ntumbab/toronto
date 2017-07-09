@@ -4,23 +4,10 @@
   import Vue from 'vue'
   /* eslint-disable */
 
-  // Initialize Firebase
-  /*var config = {
-    apiKey: "AIzaSyA4renabMYVppysVyDm_pxhqGCTEYHAoXQ",
-    authDomain: "premier-96d7f.firebaseapp.com",
-    databaseURL: "https://premier-96d7f.firebaseio.com",
-    projectId: "premier-96d7f",
-    storageBucket: "premier-96d7f.appspot.com",
-    messagingSenderId: "1008472390041"
-  };
-
-  firebase.initializeApp(config);*/
-
   Vue.use(VueGoogleMaps, {
     load: {
       key: 'AIzaSyCQBYduh5zG_frXGYd5wjO8lTGo3gV9D9o',
       v: '3'
-      // libraries: 'places', //// If you need to use place input
     }
   })
   export default {
@@ -30,6 +17,7 @@
         titre: 'Points of Interest',
         place: 'Place',
         website: 'Website',
+        // Map
         zoom: 11,
         center: {lat: 43.766771, lng: -79.337900},
         infoContent: '',
@@ -45,6 +33,7 @@
               height: -35
             }
           },
+        // Informations about different places  
         markers: [{
         position: {
           lat: 43.642424,
@@ -126,14 +115,7 @@
         src: require('../assets/images/aircanadacentre.jpg'),
         url: 'http://www.theaircanadacentre.com/'
       }],
-        image: function (event) {
-          // `this` fait référence à l'instance de Vue à l'intérieur de `methods`
-          alert('Bonjour !')
-          // `event` est l'évènement natif du DOM
-          if (event) {
-            alert(event.target.tagName)
-          }
-        },
+      // diplays markers 
         toggleInfoWindow: function (marker, idx, from) {
           this.infoWindowPos = marker.position
           this.infoContent = marker.title + '</br><img width="150" height="100" src="' + marker.src + '">'
